@@ -1,12 +1,13 @@
-import { Validate_complex,Validate_status } from "../src/Status.js";
+import { Validate_complex, Validate_status } from "../src/Status.js";
+import { getAdjustedRate } from "../src/calculate.js";
 
 // POV(Freelancer) of user
 export const user = {
-    name: 'C G Shashanth \n',
-    role: 'Freelancer \n',
-    Email: 'CGS@wms.test \n',
-    Experince: '5 years \n',
-    skills: 'JAVA Script, JAVA, Python \n',
+    name: 'C G Shashanth',
+    role: 'Freelancer',
+    Email: 'CGS@wms.test',
+    Experince: '5 years',
+    skills: 'JAVA Script, JAVA, Python',
 }
 export function getuser() { return user }
 
@@ -25,7 +26,7 @@ export async function getclients(r1) {
         client.pincode = await r1.question("Enter your pin code : \n");
         
         client.projects = [];
-        console.log(`--- Enter Projects for Client: ${client.name} ---\n`);  // ("..... client:" + clinet.name) ythis can also be done but messy code
+        console.log(`--- Enter Projects for Client: ${client.name} ---\n`);
 
         for (let j = 1; j <= 2; j++) {              //takes project details per client
             console.log(` ---------Project ${j}: ---------- \n`);
@@ -34,9 +35,9 @@ export async function getclients(r1) {
             project.description = await r1.question("what is the description of the project? \n");
             project.tech_stack = await r1.question("In what language do you want it done? \n");
             project.duration = parseFloat(await r1.question("Enter the time required (hours) : \n"));
-            project.budget = Number(await r1.question("Enter the budget of the project : \n"));
             project.complexity = await Validate_complex(r1);
-            project.status = await Validate_status(r1,project.complexity);
+            project.adjusted_rate = getAdjustedRate(project.complexity);
+            project.status = await Validate_status(r1, project.complexity);
             client.projects.push(project);
         }
         
@@ -45,6 +46,3 @@ export async function getclients(r1) {
 }
 
 export function getclient() { return client_d }
-
-
-
