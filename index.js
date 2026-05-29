@@ -11,13 +11,17 @@ async function main() {
     // show freelancer info
     const freelancer = getuser();
     console.log("\n--- Freelancer Details ---");
-    console.log(freelancer);
+    console.log("Name      : " + freelancer.name);
+    console.log("Role      : " + freelancer.role);
+    console.log("Email     : " + freelancer.Email);
+    console.log("Experience: " + freelancer.Experince);
+    console.log("Skills    : " + freelancer.skills);
 
     // collect client & project details
     await getclients(r1);
 
-    // generate invoices for all 3 clients
-    generateInvoices();
+    // let user pick which invoice to generate
+    await generateInvoices(r1);
 
     r1.close();
 }

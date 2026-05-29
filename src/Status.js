@@ -1,16 +1,12 @@
 
-const complexity = {
-    HIGH: 5,
-    LOW: 1,
-    MEDIUM: 2,
-}
+const valid_complexity = ["HIGH", "MEDIUM", "LOW"];
 
 export async function Validate_complex(r1) {
     while (true) {
         console.log("Enter the project complexity (high, low or medium) : ");
         let input = await r1.question("");
         input = input.trim().toUpperCase();
-        if (input in complexity) {
+        if (valid_complexity.includes(input)) {
             return input;
         }
         else {
@@ -22,7 +18,7 @@ export async function Validate_complex(r1) {
 }
 
 export async function Validate_status(r1, usercomplexity) {
-    if (usercomplexity == 'LOW') {
+    if (usercomplexity === 'LOW') {
         let m = "DONE";
         return m;
     }
@@ -31,7 +27,7 @@ export async function Validate_status(r1, usercomplexity) {
             console.log("enter the status of the project : \n");
             let input = await r1.question("");
             input = input.trim().toUpperCase();
-            if (input == 'IN PROGRESS' || input == 'TO-DO') {
+            if (input === 'IN PROGRESS' || input === 'TO-DO') {
                 let status = input;
                 return status;
             }
@@ -43,7 +39,3 @@ export async function Validate_status(r1, usercomplexity) {
     }
 
 }
-
-
-
-
