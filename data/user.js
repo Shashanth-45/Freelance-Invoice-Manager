@@ -1,4 +1,4 @@
-import { Validate_complex } from "../src/Status";
+import { Validate_complex,Validate_status } from "../src/Status.js";
 
 // POV(Freelancer) of user
 export const user = {
@@ -33,9 +33,10 @@ export async function getclients(r1) {
             project.title = await r1.question("what is the title of the project? \n");
             project.description = await r1.question("what is the description of the project? \n");
             project.tech_stack = await r1.question("In what language do you want it done? \n");
-            project.duration = await r1.question("Enter the time required : \n");
-            project.budget = await r1.question("Enter the budget of the project : \n");
+            project.duration = parseFloat(await r1.question("Enter the time required (hours) : \n"));
+            project.budget = Number(await r1.question("Enter the budget of the project : \n"));
             project.complexity = await Validate_complex(r1);
+            project.status = await Validate_status(r1,project.complexity);
             client.projects.push(project);
         }
         
